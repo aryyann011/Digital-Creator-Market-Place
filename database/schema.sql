@@ -22,3 +22,10 @@ CREATE TABLE ledgers (
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE purchases (
+    id SERIAL PRIMARY KEY,
+    buyer_id INTEGER NOT NULL REFERENCES users(id),
+    product_id INTEGER NOT NULL REFERENCES products(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
