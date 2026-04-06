@@ -1,6 +1,7 @@
 import express from 'express';
 import userRoutes from './routes/user.routes.js';
 import productRoutes from './routes/product.routes.js';
+import purchaseRoutes from './routes/purchase.routes.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.get('/health', (req, res) => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/purchase', purchaseRoutes)
 
 app.listen(PORT, () => {
     console.log(`\n✅ Server running at http://localhost:${PORT}`);
