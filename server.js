@@ -1,5 +1,6 @@
 import express from 'express';
-import pool from './database/db.js';
+import userRoutes from './routes/user.routes.js';
+import productRoutes from './routes/product.routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,7 +15,9 @@ app.get('/health', (req, res) => {
     });
 });
 
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+
 app.listen(PORT, () => {
     console.log(`\n✅ Server running at http://localhost:${PORT}`);
-    console.log(`📂 Database schema pending in /database/schema.sql\n`);
 });
