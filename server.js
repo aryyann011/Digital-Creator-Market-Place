@@ -18,7 +18,7 @@ app.get('/health', (req, res) => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/purchase', purchaseRoutes)
+app.use('/api/purchases', purchaseRoutes)
 
 app.listen(PORT, () => {
     console.log(`\n✅ Server running at http://localhost:${PORT}`);
