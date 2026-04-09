@@ -1,4 +1,4 @@
-import pool from "../database/db";
+import pool from "../database/db.js";
 
 export const getAllProducts = async (req, res) => {
     try {
@@ -21,10 +21,10 @@ export const getAllProducts = async (req, res) => {
 
         const result = await pool.query(query);
 
-        return res.status(201).json({
+        return res.status(200).json({
             success : true,
             message : "Products info successfully fetched",
-            data : result.rows[0]
+            data : result.rows
         })        
     } catch (error) {
         console.error("Pagination Error:", error);
