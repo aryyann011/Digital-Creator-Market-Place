@@ -25,6 +25,7 @@ export const postProduct = async(req, res) => {
                 error : "user is not allowed to sell products"
             });
         } 
+        
         const insertQuery = `
         INSERT INTO products (creator_id, price, stock_limit, product_name)
         VALUES ($1, $2, $3, $4)
