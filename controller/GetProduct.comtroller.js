@@ -1,7 +1,8 @@
-import pool from "../database/db";
+import pool from "../database/db.js";
 
 export const getAllProducts = async (req, res) => {
     try {
+        const search = req.query.search;
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const sort = req.query.sort || 'newest';
@@ -12,19 +13,25 @@ export const getAllProducts = async (req, res) => {
         if (sort === 'price_asc') orderByClause = 'ORDER BY price ASC';
         if (sort === 'price_desc') orderByClause = 'ORDER BY price DESC';
 
-        const query = `
+        let query = `
             SELECT id, product_name, price, stock_limit, creator_id 
             FROM products
-            ${orderByClause}
-            LIMIT ${limit} OFFSET ${offset}
         `;
+        const queryValues = [];
 
-        const result = await pool.query(query);
+        if (search) {
+            query += ` WHERE product_name ILIKE $1`;
+            queryValues.push(`%${search}%`); 
+        }
 
-        return res.status(201).json({
+        query += ` ${orderByClause} LIMIT ${limit} OFFSET ${offset}`;
+
+        const result = await pool.query(query, queryValues);
+
+        return res.status(200).json({
             success : true,
             message : "Products info successfully fetched",
-            data : result.rows[0]
+            data : result.rows
         })        
     } catch (error) {
         console.error("Pagination Error:", error);
